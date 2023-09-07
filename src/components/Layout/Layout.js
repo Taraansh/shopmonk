@@ -1,15 +1,30 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import { Helmet } from "react-helmet";
 
-const Layout = (props) => {
+const Layout = ({ children, title, description, keywords, author }) => {
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <meta name="description" content={description} />
+        <meta name="keywords" content={keywords} />
+        <meta name="author" content={author} />
+        <title>{title}</title>
+      </Helmet>
       <Header />
-      <main style={{height:"81vh"}}>{props.children}</main>
+      <main style={{ height: "81vh" }}>{children}</main>
       <Footer />
     </div>
   );
+};
+
+Layout.defaultProps = {
+  title: "ShopMonk",
+  description: "Concentrate on Shopping like a monk",
+  keywords: "Shopping, Buy, Products, Clothes, Mobile, Laptops",
+  author: "Taraansh",
 };
 
 export default Layout;
