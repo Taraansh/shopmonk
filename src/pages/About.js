@@ -3,7 +3,7 @@ import Layout from "../components/Layout/Layout";
 
 const About = () => {
   return (
-    <Layout>
+    <Layout title="About Us - ShopMonk" description="Read About Us Here">
       <h1>About</h1>
     </Layout>
   );
