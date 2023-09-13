@@ -1,34 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Layout from "../../components/Layout/Layout.js";
-import { Link, useNavigate } from "react-router-dom";
-import toast from 'react-hot-toast';
-import axios from "axios";
+import { Link } from "react-router-dom";
+
+import { AuthContext } from "../../context/auth.js";
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    const navigate = useNavigate()
-
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const res = await axios.post(
-          `${process.env.REACT_APP_API}/api/v1/auth/login`,
-          { email, password }
-        );
-        if(res.data.success){
-          console.log(res.data)
-          toast.success(res.data.message);
-          navigate('/')
-        }else{
-          toast.error(res.data.message);
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error("Something went wrong.");
-      }
-    };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { handleLogIn } = useContext(AuthContext);
 
   return (
     <>
@@ -36,7 +15,11 @@ const Login = () => {
         <h1 className="main">ShopMonk</h1>
         <div className="log-in">
           <div id="log_in_form">
-            <form onSubmit={handleSubmit}>
+            <form
+              onSubmit={(e) => {
+                handleLogIn(e, email, password);
+              }}
+            >
               <h2 className="secondary">Log In</h2>
               <hr className="horizontal-line" />
               <p>
@@ -52,7 +35,7 @@ const Login = () => {
                   required
                   autoComplete="email"
                   value={email}
-                  onChange={(e)=>setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </p>
               <p>
@@ -68,7 +51,7 @@ const Login = () => {
                   required
                   autoComplete="current-password"
                   value={password}
-                  onChange={(e)=>setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </p>
               <button type="submit" className="button-login-signup">
