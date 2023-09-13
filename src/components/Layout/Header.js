@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../../styles/Header.css";
+import { AuthContext } from "../../context/auth";
 
 const Header = () => {
   const path = useLocation();
+  const {user, handleLogout}=useContext(AuthContext)
 
   return (
     <nav>
@@ -22,18 +24,18 @@ const Header = () => {
           <Link className={`list-item color hover-item ${path.pathname === "/category"? 'active':``}`} to="/category">
             <li>Category</li>
           </Link>
-          {/* <Link className={`list-item color hover-item ${path.pathname === "/about"? 'active':``}`} to="/about">
-            <li>About</li>
-          </Link>
-          <Link className={`list-item color hover-item ${path.pathname === "/contact"? 'active':``}`} to="/contact">
-            <li>Contact</li>
-          </Link> */}
-          <Link className={`list-item color hover-item ${path.pathname === "/login"? 'active':``}`} to="/login">
-            <li>Login</li>
-          </Link>
-          <Link className={`list-item color hover-item ${path.pathname === "/signup"? 'active':``}`} to="/signup">
-            <li>Signup</li>
-          </Link>
+          
+          {user ? 
+          (<Link onClick={handleLogout} className={`list-item color hover-item ${path.pathname === "/login"? 'active':``}`} to="/login">
+            <li>Logout</li>
+          </Link>):
+          (<><Link className={`list-item color hover-item ${path.pathname === "/login" ? 'active' : ``}`} to="/login">
+          <li>Login</li>
+          </Link><Link className={`list-item color hover-item ${path.pathname === "/signup" ? 'active' : ``}`} to="/signup">
+          <li>Signup</li>
+          </Link></>)
+          }
+          
           <Link className={`list-item color hover-item ${path.pathname === "/cart"? 'active':``}`} to="/cart">
             <li>Cart {0}</li>
           </Link>
