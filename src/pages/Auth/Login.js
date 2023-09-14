@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import Layout from "../../components/Layout/Layout.js";
 import { Link } from "react-router-dom";
-
 import { AuthContext } from "../../context/auth.js";
 
 const Login = () => {
@@ -59,8 +58,12 @@ const Login = () => {
               </button>
             </form>
             <p className="link-to-login-signup">
+              Forgot Password?
+              <Link to="/forgot-password">Click here</Link>
+            </p>
+            <p className="link-to-login-signup">
               Don't have an account?
-              <Link to="/signup">Log In</Link>
+              <Link to="/signup">Sign Up</Link>
             </p>
           </div>
         </div>
