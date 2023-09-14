@@ -10,6 +10,7 @@ const Signup = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
+  const [answer, setAnswer] = useState("");
 
   const navigate = useNavigate()
 
@@ -18,7 +19,7 @@ const Signup = () => {
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_API}/api/v1/auth/register`,
-        { name, email, password, phone, address }
+        { name, email,answer, password, phone, address,  }
       );
       if(res.data.success){
         console.log(res.data)
@@ -104,6 +105,22 @@ const Signup = () => {
                   autoComplete="address"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
+                />
+              </p>
+              <p>
+                <label htmlFor="answer" className="label">
+                  Name of the city where you were born.
+                </label>
+                <input
+                  type="text"
+                  id="answer"
+                  className="input"
+                  name="answer"
+                  placeholder="Name of the city where you were born"
+                  required
+                  autoComplete="answer"
+                  value={answer}
+                  onChange={(e) => setAnswer(e.target.value)}
                 />
               </p>
               <p>
