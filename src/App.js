@@ -9,6 +9,7 @@ import Login from "./pages/Auth/Login";
 import Dashboard from "./pages/user/Dashboard";
 import PrivateRoute from "./components/Routes/Private";
 import { Toaster } from 'react-hot-toast';
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/policy" element={<Policy />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

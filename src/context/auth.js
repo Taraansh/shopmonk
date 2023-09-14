@@ -14,10 +14,10 @@ const AuthProvider = ({ children }) => {
     localStorage.getItem("token") ? localStorage.getItem("token") : null
   );
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
 
   //default axios
-  axios.defaults.headers.common['Authorization']=auth?.token
+  axios.defaults.headers.common["Authorization"] = auth?.token;
 
   const handleLogIn = async (e, email, password) => {
     e.preventDefault();
@@ -42,6 +42,25 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const handleResetPassword = async (e, email, answer, newPassword) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API}/api/v1/auth/forgot-password`,
+        { email, answer, newPassword }
+      );
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigate("/login");
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong.");
+    }
+  };
+
   const handleLogout = async () => {
     localStorage.removeItem("token");
     setUser(false);
@@ -55,6 +74,7 @@ const AuthProvider = ({ children }) => {
     auth: auth,
     handleLogIn: handleLogIn,
     handleLogout: handleLogout,
+    handleResetPassword: handleResetPassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
