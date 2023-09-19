@@ -6,6 +6,7 @@ import axios from "axios";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+  const [details, setDetails] = useState(null);
   const [user, setUser] = useState(() =>
     localStorage.getItem("token") ? true : false
   );
@@ -32,6 +33,7 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("token", res.data.token);
         setAuth(res.data.token);
         setUser(true);
+        setDetails(res.data.user);
         navigate(location.state || "/");
       } else {
         toast.error(res.data.message);
@@ -71,6 +73,7 @@ const AuthProvider = ({ children }) => {
 
   const value = {
     user: user,
+    details: details,
     auth: auth,
     handleLogIn: handleLogIn,
     handleLogout: handleLogout,
