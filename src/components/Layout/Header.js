@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/auth";
 
 const Header = () => {
   const path = useLocation();
-  const {user, handleLogout}=useContext(AuthContext)
+  const {user, details, handleLogout}=useContext(AuthContext)
 
   return (
     <nav>
@@ -26,9 +26,12 @@ const Header = () => {
           </Link>
           
           {user ? 
-          (<Link onClick={handleLogout} className={`list-item color hover-item ${path.pathname === "/login"? 'active':``}`} to="/login">
-            <li>Logout</li>
-          </Link>):
+          (
+            <><Link className={`list-item color hover-item ${path.pathname === "/dashboard" ? 'active' : ``}`} to="/dashboard">
+                    <li>Dashboard</li>
+                  </Link><Link onClick={handleLogout} className={`list-item color hover-item ${path.pathname === "/login" ? 'active' : ``}`} to="/login">
+                      <li>Logout ({details.name})</li>
+                    </Link></>):
           (<><Link className={`list-item color hover-item ${path.pathname === "/login" ? 'active' : ``}`} to="/login">
           <li>Login</li>
           </Link><Link className={`list-item color hover-item ${path.pathname === "/signup" ? 'active' : ``}`} to="/signup">
