@@ -31,6 +31,7 @@ const AuthProvider = ({ children }) => {
         console.log(res.data);
         toast.success(res.data.message);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("name", res.data.user.name);
         setAuth(res.data.token);
         setUser(true);
         setDetails(res.data.user);
@@ -65,6 +66,7 @@ const AuthProvider = ({ children }) => {
 
   const handleLogout = async () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("name");
     setUser(false);
     setAuth(null);
     navigate("/login");
