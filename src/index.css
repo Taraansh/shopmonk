@@ -6,9 +6,12 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-a.color {
-  color: white;
+a {
   text-decoration: none;
+}
+
+a.color{
+  color: white;
 }
 
 .hover-item:hover{
@@ -96,6 +99,52 @@ a.color {
 }
 
 
+/* *******************
+*****footer css**** */
+#footer {
+  background-color: #212529;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.para-items{
+    padding-top: 10px;
+}
+
+
+/* ****************************
+*****page not found css****** */
+.pnf {
+  display: flex;
+  min-height: 65vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pnf-title {
+  font-size: 100px;
+  font-weight: 700;
+}
+
+.pnf-heading {
+  font-weight: normal;
+}
+
+.pnf-btn {
+  color: black;
+  border: 1px solid black;
+  text-decoration: none;
+  padding: 10px;
+  margin-top: 10px;
+}
+.pnf-btn:hover {
+  background-color: black;
+  color: white;
+}
+
+
 /* *****************
 *****Login CSS*** */
 .log-in{
@@ -152,3 +201,50 @@ a.color {
     transform: rotate(360deg);
   }
 }
+
+
+/* ************************
+******Admin Menu******** */
+#admin-menu{
+  display: flex;
+}
+
+.admin-list{
+  margin: 10px;
+  /* padding: 10px; */
+  list-style: none;
+  width: 14rem;
+  display: block;
+  border: 2px solid #f1f1f1;
+  border-radius: 4px;
+  list-style-type: none;
+  background-color: #f1f1f1;
+}
+
+.admin-list-heading{
+  color: black;
+  display: flex;
+  justify-content: center;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.admin-list-item{
+  text-decoration: none;
+  color: black;
+  display: flex;
+  justify-content: center;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.admin-list-item:hover{
+  background-color: #555;
+  color: white;
+}
+
+
+/* **********************************
+*********Admin page content******* */
