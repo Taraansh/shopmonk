@@ -209,16 +209,20 @@ a.color{
   display: flex;
 }
 
+.admin-menu-active{
+  background-color: #555;
+  color: white !important;
+}
+
 .admin-list{
-  margin: 10px;
-  /* padding: 10px; */
+  margin: 0 10px 10px 10px;
   list-style: none;
   width: 14rem;
   display: block;
   border: 2px solid #f1f1f1;
   border-radius: 4px;
   list-style-type: none;
-  background-color: #f1f1f1;
+  background-color: #c9c4c4;
 }
 
 .admin-list-heading{
@@ -248,3 +252,14 @@ a.color{
 
 /* **********************************
 *********Admin page content******* */
+.admin-content{
+  border: 2px solid rgb(94, 86, 86);
+  box-shadow: 5px 5px 10px 2px #808080;
+  border-radius: 6px;
+  width: 83%;
+  padding: 8px;
+}
+
+.admin-content p{
+  font-size: 22px;
+}
