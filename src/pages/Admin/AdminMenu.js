@@ -1,12 +1,9 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 const AdminMenu = () => {
   const path = useLocation();
-  useEffect(() => {
-    console.log(path)
-  }, [path])
   
   return (
     <div  id="admin-menu">
