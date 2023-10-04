@@ -307,3 +307,33 @@ a.color {
   width: 83%;
   padding: 8px;
 }
+
+
+/* **********************************
+********manage category table***** */
+#category {
+  border-collapse: collapse;
+  width: 95%;
+  margin: 1rem auto;
+}
+
+#category td, #category th{
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#category tr:nth-child(even){
+  background-color: #f2f2f2;
+}
+
+#category tr:hover{
+  background-color: #ddd
+}
+
+#category th{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #212529;
+  color: white;
+}
