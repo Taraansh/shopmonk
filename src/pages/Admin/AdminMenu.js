@@ -10,10 +10,10 @@ const AdminMenu = () => {
       <ul className="admin-list">
       <h2 className="admin-list-heading">Admin Panel</h2>
         <Link to="/dashboard/admin/create-category">
-          <li className={`admin-list-item ${path.pathname==='/dashboard/admin/create-category'?'admin-menu-active':''}`}>Create Category</li>
+          <li className={`admin-list-item ${path.pathname==='/dashboard/admin/create-category'?'admin-menu-active':''}`}>Manage Category</li>
         </Link>
         <Link to="/dashboard/admin/create-product">
-          <li className={`admin-list-item ${path.pathname==='/dashboard/admin/create-product'?'admin-menu-active':''}`}>Create Product</li>
+          <li className={`admin-list-item ${path.pathname==='/dashboard/admin/create-product'?'admin-menu-active':''}`}>Manage Product</li>
         </Link>
         <Link to="/dashboard/admin/users">
           <li className={`admin-list-item ${path.pathname==='/dashboard/admin/users'?'admin-menu-active':''}`}>Users</li>
