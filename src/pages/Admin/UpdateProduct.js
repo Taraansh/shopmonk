@@ -4,10 +4,10 @@ import AdminMenu from "./AdminMenu";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Select } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const { Option } = Select;
 
-const CreateProduct = () => {
+const UpdateProduct = () => {
   const [categories, setCategories] = useState([]);
   const [photo, setPhoto] = useState("");
   const [name, setName] = useState("");
@@ -16,7 +16,35 @@ const CreateProduct = () => {
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
   const [shipping, setShipping] = useState("");
+  const params = useParams();
   const navigate = useNavigate();
+  const [id, setId] = useState("");
+
+  //get single product
+  const getSingleProduct = async () => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API}/api/v1/product/get-product/${params.slug}`
+      );
+      setName(data?.product.name);
+      setId(data?.product._id);
+      setDescription(data?.product.description);
+      setPrice(data?.product.price);
+      setCategory(data?.product.category);
+      setQuantity(data?.product.quantity);
+      setShipping(data?.product.shipping);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong in getting product");
+    }
+  };
+
+  useEffect(
+    () => {
+      getSingleProduct();
+    }, // eslint-disable-next-line
+    []
+  );
 
   //get all categories
   const getAllCategory = async () => {
@@ -39,31 +67,49 @@ const CreateProduct = () => {
   }, []);
 
   //create product function
-  const handleCreate = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       const productData = new FormData();
       productData.append("name", name);
       productData.append("description", description);
       productData.append("price", price);
-      productData.append("category", category);
+      productData.append("category", category._id);
       productData.append("quantity", quantity);
       productData.append("shipping", shipping);
-      productData.append("photo", photo);
-      const { data } = axios.post(
-        `${process.env.REACT_APP_API}/api/v1/product/create-product`,
+      photo && productData.append("photo", photo);
+      const { data } = axios.put(
+        `${process.env.REACT_APP_API}/api/v1/product/update-product/${id}`,
         productData,
         { headers: { Authorization: localStorage.getItem("token") } }
       );
       if (data?.success) {
         toast.error(data?.message);
       } else {
-        toast.success("Product created successfully");
+        toast.success("Product updated successfully");
         navigate("/dashboard/admin/products");
       }
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong while creating product");
+    }
+  };
+
+  //delete product
+  const handleDelete = async () => {
+    try {
+      let answer = window.confirm(
+        "Are you sure you want to delete this product?"
+      );
+      if (!answer) return;
+      await axios.delete(
+        `${process.env.REACT_APP_API}/api/v1/product/delete-product/${id}`
+      );
+      toast.success("Product deleted successfully");
+      navigate("/dashboard/admin/products");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong while deleting product");
     }
   };
 
@@ -74,8 +120,8 @@ const CreateProduct = () => {
           <AdminMenu />
         </div>
         <div id="create-product-content" className="admin-content">
-          <h1 style={{ textAlign: "center" }}>Manage Products</h1>
-          <form onSubmit={handleCreate}>
+          <h1 style={{ textAlign: "center" }}>Update Product</h1>
+          <form onSubmit={handleUpdate}>
             <div style={{ width: "90%", margin: "auto" }}>
               <Select
                 style={{ width: "100%", marginLeft: "0px" }}
@@ -86,6 +132,7 @@ const CreateProduct = () => {
                 onChange={(value) => {
                   setCategory(value);
                 }}
+                value={category.name}
               >
                 {categories?.map((category) => {
                   return (
@@ -113,10 +160,18 @@ const CreateProduct = () => {
                 </label>
               </div>
               <div>
-                {photo && (
+                {photo ? (
                   <div>
                     <img
                       src={URL.createObjectURL(photo)}
+                      alt="Product"
+                      height="200px"
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <img
+                      src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${id}`}
                       alt="Product"
                       height="200px"
                     />
@@ -171,7 +226,7 @@ const CreateProduct = () => {
                   }}
                 />
               </div>
-              <div style={{ marginTop: "8px" }}>
+              <div style={{}}>
                 <Select
                   className="input"
                   style={{ width: "100%", marginLeft: "0" }}
@@ -180,14 +235,29 @@ const CreateProduct = () => {
                   onChange={(value) => {
                     setShipping(value);
                   }}
+                  value={shipping ? "Yes" : "No"}
                 >
                   <Option value="0">No</Option>
                   <Option value="1">Yes</Option>
                 </Select>
               </div>
               <div style={{ marginTop: "8px" }}>
-                <button type="submit" className="button-login-signup">
-                  Create Product
+                <button
+                  type="submit"
+                  style={{ margin: "8px 0", width: "10rem" }}
+                  className="button-login-signup"
+                >
+                  Update Product
+                </button>
+              </div>
+              <div style={{ marginTop: "8px" }}>
+                <button
+                  type="button"
+                  className="button-login-signup"
+                  style={{ margin: "8px 0", width: "10rem" }}
+                  onClick={handleDelete}
+                >
+                  Delete Product
                 </button>
               </div>
             </div>
@@ -198,4 +268,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default UpdateProduct;

@@ -28,7 +28,6 @@ const AuthProvider = ({ children }) => {
         { email, password }
       );
       if (res.data.success) {
-        console.log(res.data);
         toast.success(res.data.message);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("name", res.data.user.name);
@@ -79,6 +78,7 @@ const AuthProvider = ({ children }) => {
     auth: auth,
     handleLogIn: handleLogIn,
     handleLogout: handleLogout,
+    setDetails: setDetails,
     handleResetPassword: handleResetPassword,
   };
 

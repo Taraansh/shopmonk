@@ -41,9 +41,8 @@ const CreateCategory = () => {
       const { data } = await axios.get(
         `${process.env.REACT_APP_API}/api/v1/category/get-category`
       );
-      if (data.success) {
-        console.log(data);
-        setCategories(data.category);
+      if (data?.success) {
+        setCategories(data?.category);
       }
     } catch (error) {
       console.log(error);
@@ -80,7 +79,7 @@ const CreateCategory = () => {
     }
   };
 
-  //delete category 
+  //delete category
   const handleDelete = async (id) => {
     try {
       const { data } = await axios.delete(
@@ -112,7 +111,7 @@ const CreateCategory = () => {
               handleSubmit={handleSubmit}
               value={name}
               setValue={setName}
-              buttonName='Add'
+              buttonName="Add"
             />
           </div>
           <table id="category">
@@ -150,7 +149,9 @@ const CreateCategory = () => {
                         padding: "4px 8px",
                         backgroundColor: "#bc1111",
                       }}
-                      onClick={()=>{handleDelete(category._id)}}
+                      onClick={() => {
+                        handleDelete(category._id);
+                      }}
                     >
                       Delete
                     </button>

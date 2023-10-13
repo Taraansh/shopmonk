@@ -2,10 +2,16 @@ import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../../styles/Header.css";
 import { AuthContext } from "../../context/auth";
+import SearchInput from "../Form/SearchInput";
+import useCategory from "../../hooks/useCategory";
+import { CartContext } from "../../context/cart";
+import { Badge } from "antd";
 
 const Header = () => {
   const path = useLocation();
   const { user, details, handleLogout } = useContext(AuthContext);
+  const categories = useCategory();
+  const { cart } = useContext(CartContext);
 
   return (
     <nav>
@@ -13,6 +19,8 @@ const Header = () => {
         <Link className="color" id="main-icon" to="/">
           ShopMonk
         </Link>
+
+        <SearchInput />
 
         <ul className="list">
           <div className="dropdown">
@@ -42,14 +50,28 @@ const Header = () => {
               >
                 <li>Home</li>
               </Link>
-              <Link
-                className={`list-item color hover-item ${
-                  path.pathname === "/category" ? "active" : ``
-                }`}
-                to="/category"
-              >
-                <li>Category</li>
-              </Link>
+              <div className="login-dropdown">
+                <span className="login-dropbtn list-item color hover-item">
+                  <Link
+                    className="list-item color"
+                    style={{ margin: "0" }}
+                    to={"/categories"}
+                  >
+                    Categories
+                  </Link>
+                </span>
+                <div className="login-dropdown-content">
+                  {categories.map((category) => (
+                    <Link
+                      to={`/category/${category.slug}`}
+                      key={category._id}
+                      className="list-item color"
+                    >
+                      <li style={{ width: "10rem" }}>{category.name}</li>
+                    </Link>
+                  ))}
+                </div>
+              </div>
 
               {user ? (
                 <>
@@ -102,15 +124,11 @@ const Header = () => {
                   </Link>
                 </>
               )}
-
-              <Link
-                className={`list-item color hover-item ${
-                  path.pathname === "/cart" ? "active" : ``
-                }`}
-                to="/cart"
-              >
-                <li>Cart {0}</li>
-              </Link>
+              <Badge className={`list-item`} count={cart?.length}>
+                <Link className={`color`} to="/cart">
+                  <li style={{ fontSize: "20px" }}>&#128722;</li>
+                </Link>
+              </Badge>
             </div>
           </div>
         </ul>

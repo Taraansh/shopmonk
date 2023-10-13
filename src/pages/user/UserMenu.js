@@ -8,7 +8,7 @@ const UserMenu = () => {
   return (
     <div  id="user-menu">
       <ul className="user-list">
-      <h2 className="user-list-heading">Dashboard</h2>
+      <h2 className="user-list-heading" style={{marginBottom: '0'}}>Dashboard</h2>
         <Link to="/dashboard/user/profile">
           <li className={`user-list-item ${path.pathname==='/dashboard/user/profile'?'user-menu-active':''}`}>Profile</li>
         </Link>

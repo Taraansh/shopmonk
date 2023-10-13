@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
-import Spinner from "../Layout/Spinner";
+import Spinner from "../Spinner";
 
 export default function PrivateRoute() {
   const [ok, setOk] = useState(false);
@@ -19,7 +19,6 @@ export default function PrivateRoute() {
         }
       );
       if (res.data.ok) {
-        console.log("true");
         setOk(true);
       } else {
         setOk(false);
