@@ -19,6 +19,8 @@ export default function PrivateRoute() {
         }
       );
       if (res.data.ok) {
+        console.log(res.data);
+        console.log("abcd");
         setOk(true);
       } else {
         setOk(false);
