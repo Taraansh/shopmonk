@@ -4,7 +4,7 @@ import { SearchContext } from "../context/Search";
 import { Link } from "react-router-dom";
 
 const Search = () => {
-    const {search} = useContext(SearchContext)
+  const { search } = useContext(SearchContext);
 
   return (
     <Layout title={"Search Results - ShopMonk"}>
@@ -16,67 +16,67 @@ const Search = () => {
             : `Found ${search?.results.length}`}
         </h5>
         <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              margin: "0",
-            }}
-          >
-            {search.results?.map((product) => (
-              <Link
-                key={product._id}
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            margin: "0",
+          }}
+        >
+          {search.results?.map((product) => (
+            <Link
+              key={product._id}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
+              to={`/dashboard/admin/product/${product.slug}`}
+            >
+              <div
                 style={{
-                  textDecoration: "none",
-                  color: "inherit",
+                  border: "2px solid black",
+                  borderRadius: "5px",
+                  margin: "1rem",
                 }}
-                to={`/dashboard/admin/product/${product.slug}`}
               >
-                <div
-                  style={{
-                    border: "2px solid black",
-                    borderRadius: "5px",
-                    margin: "1rem",
-                  }}
-                >
-                  <img
-                    src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`}
-                    alt={product.name}
-                    width={"240px"}
-                    height={"240px"}
-                  />
-                  <hr />
-                  <div>
-                    <h5>{product.name}</h5>
-                    <p>{product.description.substring(0, 30)}...</p>
-                    <p>${product.price}</p>
-                    <div style={{ display: "flex" }}>
-                      <button
-                        type="submit"
-                        className="button-login-signup"
-                        style={{
-                          width: "50%",
-                          margin: "1px",
-                        }}
-                      >
-                        Open
-                      </button>
-                      <button
-                        type="submit"
-                        className="button-login-signup"
-                        style={{
-                          width: "50%",
-                          margin: "1px",
-                        }}
-                      >
-                        Add to cart
-                      </button>
-                    </div>
+                <img
+                  src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`}
+                  alt={product.name}
+                  width={"240px"}
+                  height={"240px"}
+                />
+                <hr />
+                <div>
+                  <h5>{product.name}</h5>
+                  <p>{product.description.substring(0, 30)}...</p>
+                  <p>${product.price}</p>
+                  <div style={{ display: "flex" }}>
+                    <button
+                      type="submit"
+                      className="button-login-signup"
+                      style={{
+                        width: "50%",
+                        margin: "1px",
+                      }}
+                    >
+                      Open
+                    </button>
+                    <button
+                      type="submit"
+                      className="button-login-signup"
+                      style={{
+                        width: "50%",
+                        margin: "1px",
+                      }}
+                    >
+                      Add to cart
+                    </button>
                   </div>
                 </div>
-              </Link>
-            ))}
-          </div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </Layout>
   );
